@@ -4,12 +4,10 @@ var FoodItem = function (name, calories, vegan, glutenFree, citrusFree) {
 	this.vegan = vegan;
 	this.glutenFree = glutenFree;
 	this.citrusFree = citrusFree;
-// return (this.name + 'has ' this.calories + 'and' + v + 'and' + g + 'and' + c '.');
+
 };
 
-console.log(FoodItem.name);
-
-var v = function() {
+FoodItem.prototype.v = function() {
 	if(this.vegan === true){
 		return "is vegan";
 	}
@@ -18,8 +16,8 @@ var v = function() {
 		return "is not vegan";
 	}
 }
-console.log(this.vegan);
-var g = function() {
+
+FoodItem.prototype.g = function() {
 	if(this.glutenFree === true){
 		return "is gluten free";
 	}
@@ -28,8 +26,8 @@ var g = function() {
 		return "is not gluten free";
 	}
 }
-console.log(g);
-var c = function() {
+
+FoodItem.prototype.c = function() {
 	if(this.citrusFree === true){
 		return "is citrus free";
 	}
@@ -38,22 +36,102 @@ var c = function() {
 		return "is not citrus free";
 	}
 }
-console.log(c);
 
-var pasta = new FoodItem ('Pasta', 470, true, false, false);
-var pizza = new FoodItem ('Pizza', 500, false, false, true);
-var burger = new FoodItem ('Burger', 600, false, false, true);
+var Restaurant = function (name, description, menu) {
+	this.name = name;
+	this.description = description;
+	this.menu = menu;
+};
+console.log ('hi');
 
-// pasta.toString();
-// pizza.toString();
-// burger.toString();
+var Menu = function (name, description, price) {
+	// this.name = name;
+	// this.description = description;
+	// this.price = price;
+	this.plates = [];
+};
+console.log ('hi');
 
-// return (FoodItem.name + 'has ' FoodItem.calories + 'and' + v + 'and' + g + 'and' + c '.');
+var Drink = function (name, description, price) {
+	this.name = name;
+	this.description = description;
+	this.price = price;
+	// Menu.call(name, description, price);
+	// this.ingredients = [];
+};
+// Drink.prototype = new Menu();
+// Drink.prototype.constructor = Drink;
 
-// FoodItem.prototype.toString = function FoodItemToString() {
-//   var ret = "Dog " + this.name + " is a " + this.calories + " " + this.vegan + " " + this.glutenFree;
-//   console.log (ret);
-// }
+var Plate = function (name, description, price) {
+	this.name = name;
+	this.description = description;
+	this.price = price;
+	// Menu.call(name, description, price);
+	this.ingredients = [];
+};
+// Plate.prototype = new Menu();
+// Plate.prototype.constructor = Plate;
+console.log ('hi');
+
+var Order = function () {
+	// this.plates = [];
+};
+console.log ('hi');
+
+var Customer = function (dietaryPreference) {
+	this.dietaryPreference = dietaryPreference;
+};	
+console.log ('hi');
+
+
+var butter = new FoodItem ('Butter', 470, true, false, false);
+var wheat = new FoodItem ('Wheat', 500, false, false, true);
+var orange = new FoodItem ('Orange', 600, false, false, true);
+
+var margarita = new Drink ('margarita', 'mint and lime beverage', 10 );
+var beer = new Drink ('beer', 'alcoholic beverage', 5);
+
+var burrito = new Plate ('burrito', 'filled with steak and peppers', 5, []);
+var guacamole = new Plate ('guacamole', 'made of avocados', 5, []);
+
+var menu = [burrito, guacamole, margarita, beer];
+
+var restaurant = menu;
+
+FoodItem.prototype.toString = function () {
+	return this.name + ' has ' + this.calories + ' calories, ' + this.v() + ' , ' + this.g() + ' and ' + this.c() + '.';
+
+};
+
+Drink.prototype.toString = function () {
+	return this.name + ' is a ' + this.description + ' which costs ' + this.price + ' dollars.';
+};
+
+Plate.prototype.toString = function () {
+	return this.name + ' is ' + this.description + ' and is ' + FoodItem.vegan + ' which costs ' + this.price + ' dollars.';
+};
+
+Restaurant.prototype.toString = function () {
+	return this.name + ' is ' + this.description + ' and is ' + FoodItem.vegan + ' which costs ' + this.price + ' dollars.';
+};
+
+
+console.log (butter.toString());
+console.log (wheat.toString());
+console.log (orange.toString());
+
+console.log (margarita.toString());
+console.log (beer.toString());
+
+console.log (burrito.toString());
+console.log (guacamole.toString());
+
+
+
+
+
+
+
 
 
 
