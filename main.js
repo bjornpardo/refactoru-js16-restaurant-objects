@@ -1,17 +1,22 @@
+// $(document).on('ready', function() {
+
+
 var FoodItem = function (name, calories, vegan, glutenFree, citrusFree) {
 	this.name = name;
 	this.calories = calories;
 	this.vegan = vegan;
 	this.glutenFree = glutenFree;
 	this.citrusFree = citrusFree;
+};
 
+FoodItem.prototype.toString = function () {
+	return this.name + ' has ' + this.calories + ' calories, ' + this.v() + ' , ' + this.g() + ' and ' + this.c() + '.';
 };
 
 FoodItem.prototype.v = function() {
 	if(this.vegan === true){
 		return "is vegan";
 	}
-
 	else {
 		return "is not vegan";
 	}
@@ -21,7 +26,6 @@ FoodItem.prototype.g = function() {
 	if(this.glutenFree === true){
 		return "is gluten free";
 	}
-
 	else {
 		return "is not gluten free";
 	}
@@ -31,7 +35,6 @@ FoodItem.prototype.c = function() {
 	if(this.citrusFree === true){
 		return "is citrus free";
 	}
-
 	else {
 		return "is not citrus free";
 	}
@@ -41,8 +44,12 @@ var Restaurant = function (name, description, menu) {
 	this.name = name;
 	this.description = description;
 	this.menu = menu;
+	// return $('<div class="Restaurant">{name}</div>'.supplant(Restaurant));
 };
-console.log ('hi');
+
+Restaurant.prototype.toString = function () {
+	return this.name + ' is ' + this.description + ' and is ' + FoodItem.vegan + ' which costs ' + this.price + ' dollars.';
+};
 
 var Menu = function (name, description, price) {
 	// this.name = name;
@@ -50,28 +57,41 @@ var Menu = function (name, description, price) {
 	// this.price = price;
 	this.plates = [];
 };
-console.log ('hi');
 
 var Drink = function (name, description, price) {
 	this.name = name;
 	this.description = description;
 	this.price = price;
-	// Menu.call(name, description, price);
-	// this.ingredients = [];
+	this.ingredients = [];
 };
-// Drink.prototype = new Menu();
-// Drink.prototype.constructor = Drink;
+
+// var isVegan = function (a, b) {
+// 	if (a && b === vegan) {
+// 	return isVegan
+// }
+
+Drink.prototype.toString = function () {
+	return this.name + ' is a ' + this.description + ' which costs ' + this.price + ' dollars.';
+};
 
 var Plate = function (name, description, price) {
 	this.name = name;
 	this.description = description;
 	this.price = price;
-	// Menu.call(name, description, price);
 	this.ingredients = [];
 };
-// Plate.prototype = new Menu();
-// Plate.prototype.constructor = Plate;
-console.log ('hi');
+
+Plate.prototype.isVegan = function () {
+	for (i = 0; i<ingredients.length; i++){
+		if (ingredients[i].v === false) {
+			return ;
+		}
+	}
+}
+
+Plate.prototype.toString = function () {
+	return this.name + ' is ' + this.description + ' and is ' + this.vegan + ' which costs ' + this.price + ' dollars.';
+};
 
 var Order = function () {
 	// this.plates = [];
@@ -81,7 +101,6 @@ console.log ('hi');
 var Customer = function (dietaryPreference) {
 	this.dietaryPreference = dietaryPreference;
 };	
-console.log ('hi');
 
 
 var butter = new FoodItem ('Butter', 470, true, false, false);
@@ -98,22 +117,19 @@ var menu = [burrito, guacamole, margarita, beer];
 
 var restaurant = menu;
 
-FoodItem.prototype.toString = function () {
-	return this.name + ' has ' + this.calories + ' calories, ' + this.v() + ' , ' + this.g() + ' and ' + this.c() + '.';
 
-};
 
-Drink.prototype.toString = function () {
-	return this.name + ' is a ' + this.description + ' which costs ' + this.price + ' dollars.';
-};
+margarita.ingredients.push(orange);
+margarita.ingredients.push(butter);
 
-Plate.prototype.toString = function () {
-	return this.name + ' is ' + this.description + ' and is ' + FoodItem.vegan + ' which costs ' + this.price + ' dollars.';
-};
+beer.ingredients.push(wheat);
 
-Restaurant.prototype.toString = function () {
-	return this.name + ' is ' + this.description + ' and is ' + FoodItem.vegan + ' which costs ' + this.price + ' dollars.';
-};
+
+burrito.ingredients.push(butter);
+burrito.ingredients.push(wheat);
+
+guacamole.ingredients.push(orange);
+guacamole.ingredients.push(wheat);
 
 
 console.log (butter.toString());
@@ -126,9 +142,7 @@ console.log (beer.toString());
 console.log (burrito.toString());
 console.log (guacamole.toString());
 
-
-
-
+// });
 
 
 
