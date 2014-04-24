@@ -1,5 +1,7 @@
-// $(document).on('ready', function() {
 
+/*********************************
+ * CLASS DEFINITIONS
+ *********************************/
 
 var FoodItem = function (name, calories, vegan, glutenFree, citrusFree) {
 	this.name = name;
@@ -10,35 +12,9 @@ var FoodItem = function (name, calories, vegan, glutenFree, citrusFree) {
 };
 
 FoodItem.prototype.toString = function () {
-	return this.name + ' has ' + this.calories + ' calories, ' + this.v() + ' , ' + this.g() + ' and ' + this.c() + '.';
+	return this.name + ' has ' + this.calories + ' calories, ' + this.isVegan() + ' , ' + this.isGlutenFree() + ' and ' + this.isCitrusFree() + '.';
 };
 
-FoodItem.prototype.v = function() {
-	if(this.vegan === true){
-		return "is vegan";
-	}
-	else {
-		return "is not vegan";
-	}
-}
-
-FoodItem.prototype.g = function() {
-	if(this.glutenFree === true){
-		return "is gluten free";
-	}
-	else {
-		return "is not gluten free";
-	}
-}
-
-FoodItem.prototype.c = function() {
-	if(this.citrusFree === true){
-		return "is citrus free";
-	}
-	else {
-		return "is not citrus free";
-	}
-}
 
 var Restaurant = function (name, description, menu) {
 	this.name = name;
@@ -65,38 +41,52 @@ var Drink = function (name, description, price) {
 	this.ingredients = [];
 };
 
-// var isVegan = function (a, b) {
-// 	if (a && b === vegan) {
-// 	return isVegan
-// }
 
 Drink.prototype.toString = function () {
 	return this.name + ' is a ' + this.description + ' which costs ' + this.price + ' dollars.';
 };
 
-var Plate = function (name, description, price) {
+var Plate = function (name, description, price, ingredients) {
 	this.name = name;
 	this.description = description;
 	this.price = price;
-	this.ingredients = [];
+	this.ingredients = ingredients;
 };
 
 Plate.prototype.isVegan = function () {
-	for (i = 0; i<ingredients.length; i++){
-		if (ingredients[i].v === false) {
-			return ;
+	for ( var i = 0; i<this.ingredients.length; i++){
+		if (this.ingredients[i].vegan === false) {
+			return "is vegan";
+		}
+	}	
+			return "is not vegan";
+};
+
+Plate.prototype.isCitrusFree = function () {
+	for ( var i = 0; i<this.ingredients.length; i++) {
+		if (this.ingredients[i].citrusFree === false) {
+			return "is not citrus free";
 		}
 	}
-}
+			return "is citrus free";
+};
+
+Plate.prototype.isGlutenFree = function () {
+	for ( var i = 0; i<this.ingredients.length; i++){
+		if (this.ingredients[i].glutenFree === false) {
+			return "is not gluten free";
+		}
+	}
+			return "is gluten free";
+};		
 
 Plate.prototype.toString = function () {
-	return this.name + ' is ' + this.description + ' and is ' + this.vegan + ' which costs ' + this.price + ' dollars.';
+	return this.name + ' is ' + this.description + ' and ' + this.isVegan() + ' ' + this.isCitrusFree() + ' ' + this.isGlutenFree() + ' which costs ' + this.price + ' dollars.';
 };
 
 var Order = function () {
 	// this.plates = [];
 };
-console.log ('hi');
 
 var Customer = function (dietaryPreference) {
 	this.dietaryPreference = dietaryPreference;
@@ -106,6 +96,9 @@ var Customer = function (dietaryPreference) {
 var butter = new FoodItem ('Butter', 470, true, false, false);
 var wheat = new FoodItem ('Wheat', 500, false, false, true);
 var orange = new FoodItem ('Orange', 600, false, false, true);
+var beans = new FoodItem ('Beans', 100, true, true, true);
+var rice = new FoodItem ('Rice', 50, true, true, true);
+
 
 var margarita = new Drink ('margarita', 'mint and lime beverage', 10 );
 var beer = new Drink ('beer', 'alcoholic beverage', 5);
@@ -113,11 +106,9 @@ var beer = new Drink ('beer', 'alcoholic beverage', 5);
 var burrito = new Plate ('burrito', 'filled with steak and peppers', 5, []);
 var guacamole = new Plate ('guacamole', 'made of avocados', 5, []);
 
-var menu = [burrito, guacamole, margarita, beer];
+var menu = new Menu ([burrito, guacamole, margarita, beer]);
 
 var restaurant = menu;
-
-
 
 margarita.ingredients.push(orange);
 margarita.ingredients.push(butter);
@@ -127,9 +118,13 @@ beer.ingredients.push(wheat);
 
 burrito.ingredients.push(butter);
 burrito.ingredients.push(wheat);
+burrito.ingredients.push(rice);
+
 
 guacamole.ingredients.push(orange);
 guacamole.ingredients.push(wheat);
+guacamole.ingredients.push(beans);
+
 
 
 console.log (butter.toString());
@@ -142,7 +137,23 @@ console.log (beer.toString());
 console.log (burrito.toString());
 console.log (guacamole.toString());
 
-// });
+
+/*********************************
+ * UI
+ *********************************/
+
+ $(document).on('ready', function() {
+
+	// var outerShell = $('<div class="outer-shell"></div>');
+	// var innerShell = $('<div class="inner-shell"></div>');
+	// var AmPmLabel = $('<div class="am-pm">PM</div>');
+	// var AutoLabel = $('<div class="auto">AUTO</div>');
+	// var clockScreen = $('<div class="clock-screen"></div>');
+	// var indicator = $('<div class="indicator"></div>');
+	// var clockText = $('<div class="clock-text">12:17</div>');
+
+
+});
 
 
 
